@@ -1,0 +1,20 @@
+{:queries
+ [{:count 4
+   :username "cavan.david"
+   :id "event-user-cavan"}
+  {:count 5
+   :username "cavan.david"
+   :mood "happy"
+   :id "event-user-cavan-happy"}
+  {:count 5
+   :username "mark.randomson"
+   :id "event-user-mark"}
+  {:count 6
+   :mood   "sad"
+   :username "mark.randomson"
+   :id "event-user-mark-sad"}
+  ;; Added impossibe event
+  {:count 20
+   :username "cavan.david"
+   :mood "sad"
+   :id "event-user-cavan-sad"}]}

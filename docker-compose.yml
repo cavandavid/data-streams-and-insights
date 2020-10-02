@@ -1,0 +1,37 @@
+version: '3'
+
+image: runejuhl/lein-build
+
+services:
+  app:
+    environment:
+      - CONFIG=/overlay/resources/config.edn
+      - WORK_DIR=/overlay
+      - NO_SPAWN_SERVER=0
+      - DEBUG=1
+    command: "wait-for-bootstrap.sh icinga2:5665 -- lein run"
+    volumes:
+      # mount parent dir so we have any dependencies available
+      - ./:/overlay-ro:ro
+      # mount maven dir so we avoid pulling lein deps
+      - ~/.m2:/root/.m2
+    links:
+      - icinga2
+    networks:
+      - internal
+      - external
+    ports:
+      - 9092:9092
+
+  agent:
+    build: ./test/agent
+    command: 'bash -c "/usr/sbin/rsyslogd & /usr/sbin/netdata & sleep 3 && /opt/obmondo/bin/obmondo-agent run -vvv --addr daemon:9090 --certname test.enableit --insecure --unencrypted"'
+    networks:
+      - internal
+      - external
+    ports:
+      - 29999:19999
+
+networks:
+  external:
+  internal:
