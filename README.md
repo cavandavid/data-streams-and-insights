@@ -3,12 +3,14 @@
 Handles multiple data streams and provides insights based on the criteria set in config file
 
 ### Usage
-1. Start web app
+1. Configure the events for which you want insights in `resources/config.edn`
+
+2. Start web app
 ```
 $ lein run run-app
 20-10-02 08:34:08 cavan--E470 INFO [stream-handler.server:71] - Server started at port  9092
 ```
-2. Start multiple connection streams to it by running the following command across multiple instances
+3. Start multiple connection streams to it by running the following command across multiple instances
 ```
 lein run run-client
 ```
